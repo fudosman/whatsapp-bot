@@ -1,28 +1,21 @@
-const axios = require('axios');
+const axios = require('axios')
 
-exports.sendGetRequest = (data)=>{
 
+exports.sendPostRequest = async (config) => {
+ 
 };
 
 
-exports.sendPostRequest = (url, data)=>{
-  axios({
-    method: 'post',
-    url: url,
-    data: data
-  })
-  .then(function (response){
-    return response;
-  })
-  .catch(function (error){
-    return error;
-  });
+exports.sendGetRequest = (config) => {
+  axios(config);
 };
 
 
-exports.sendPutRequest = (data)=>{
-
+exports.sendPutRequest = (config) => {
+  axios(config);
 };
-exports.sendDeleteRequest = (data)=>{
 
+
+exports.sendDeleteRequest = (config) => {
+  axios(config);
 };
