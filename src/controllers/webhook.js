@@ -5,7 +5,7 @@ const {config} = require("../utils/utils");
 const {markMessageAsRead, send_Text_Message} = require("../services/message");
 
 
-exports.webHook = async (req, res) => {
+// exports.webHook = async (req, res) => {
   console.log(req.body);
 
   let message = {

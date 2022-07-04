@@ -7,8 +7,7 @@ const axios = require('axios');
 /////////////////////////////////////////////////////////////
 
 
-
-exports.message_is_read = async (config) => {
+exports.handlePostRequests = async (config) => {
   console.log({
     info: "incomming data",
     data: config.data,
@@ -26,16 +25,16 @@ exports.message_is_read = async (config) => {
 };
 
 
-exports.sendGetRequest = (config) => {
+exports.handleGetRequest = (config) => {
   axios(config);
 };
 
 
-exports.sendPutRequest = (config) => {
+exports.handlePutRequest = (config) => {
   axios(config);
 };
 
 
-exports.sendDeleteRequest = (config) => {
+exports.handleDeleteRequest = (config) => {
   axios(config);
 };
