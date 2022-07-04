@@ -1,50 +1,38 @@
 const {
   StatusCodes
 } = require('http-status-codes');
-const {message_is_read} = require("../services/axios");
-require('dotenv').config();
-const version = process.env.VERSION;
-const Phone_Number_Id = process.env.PHONE_NUMBER_ID;
-const authorization = process.env.FB_AUTHORIZATION;
+const {config} = require("../utils/utils");
+const {markMessageAsRead, send_Text_Message} = require("../services/message");
 
-
-function config (method,data){
-  return {
-    method: `${method}`,
-    url: `https://graph.facebook.com/${version}/${Phone_Number_Id}/messages`,
-    headers: {
-      'Authorization': authorization,
-      'Content-Type': 'application/json'
-    },
-    data: data
-  };
-}
 
 exports.webHook = async (req, res) => {
   console.log(req.body);
 
   let message = {
-    messaging_product: 'whatsapp',
-    recipient_type: "individual",
-    to: `${req.body.entry[0].changes[0].value.metadata.phone_number_id}`,
-    type: req.body.entry[0].changes[0].value.messages[0].type
+    to: req.body.entry[0].changes[0].value.contacts[0].wa_id,
+    name: req.body.entry[0].changes[0].value.contacts[0].profile.name,
+    type: req.body.entry[0].changes[0].value.messages[0].type,
+    message: req.body.entry[0].changes[0].value.messages[0].text.body, 
+    message_id:req.body.entry[0].changes[0].value.messages[0].id,
   };
+  console.log(message.to);
 
   // MARK AS READ WITH A PUT REQUEST
   if (message.type === "text") {
-    const data = {
-      "messaging_product": "whatsapp",
-      "status": "read",
-      "message_id": req.body.entry[0].changes[0].value.messages[0].id
-    };
-    const isRead = await message_is_read(config("post",data));
-    if(isRead.success){
-      // make an introduction of your bot
-      // open an function for interaction with the user
-      // get the users message from the message object
-      console.log({message: req.body.entry[0].changes[0].value.messages[0].text.body});
+    markMessageAsRead(message);
+    let is_this_a_link = false;
+    let custom_message = ` 
+    Welcome *${message.name}*,\n
+    _Please select an option below_
+    1. View Popular Fragrances
+    2. View Executive Fragrances
+    3. View Masculine Fragrances
+    4. View Feminine Fragrances
+    5. enter a product code to redeem a discount
+    6. view your cart
+    7. Exit
+    `;
+    send_Text_Message(message,custom_message,is_this_a_link);
 
-    }
-    
   }
 };
