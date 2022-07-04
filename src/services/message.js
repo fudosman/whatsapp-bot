@@ -41,7 +41,6 @@ exports.send_Text_Message = async (message,custom_message,is_this_a_link) => {
         "body": `${custom_message}`
     }
   };
-
   const send_config = config("post",paylaod);
   const isRead = await handlePostRequests(send_config);
   return isRead;
