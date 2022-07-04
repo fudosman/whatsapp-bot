@@ -23,7 +23,7 @@ function config (method,data){
 exports.webHook = async (req, res) => {
   console.log(req.body);
 
-  const message = {
+  let message = {
     messaging_product: 'whatsapp',
     recipient_type: "individual",
     to: `${req.body.entry[0].changes[0].value.metadata.phone_number_id}`,
@@ -41,6 +41,9 @@ exports.webHook = async (req, res) => {
     if(isRead.success){
       // make an introduction of your bot
       // open an function for interaction with the user
+      // get the users message from the message object
+      console.log({message: req.body.entry[0].changes[0].value.messages[0].text.body});
+
     }
     
   }
