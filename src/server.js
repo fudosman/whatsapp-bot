@@ -2,7 +2,7 @@ const app = require("./app");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 const start = async () => {
   try {

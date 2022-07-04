@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const {returnChallenge, webHook} = require("../../controllers/whatsapp.controller");
+const {webHook} = require("../../controllers/webhook");
+const {returnChallenge} = require("../../controllers/challenge");
 
 
 router.get("/", returnChallenge);
