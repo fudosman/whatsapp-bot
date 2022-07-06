@@ -96,7 +96,7 @@ exports.extractMessageType = (req) => {
   });
 
   // callback from a quick reply callback button
-  let context = inside_messages? inside_messages.context: null;
+  let context = inside_messages ? inside_messages.context : null;
   console.log({
     "context": context
   });
@@ -160,60 +160,60 @@ exports.extractMessageType = (req) => {
 
   let latitude = location_message ? location_message.latitude : null;
   console.log({
-    "latitude":latitude
+    "latitude": latitude
   });
 
   let longitude = location_message ? location_message.longitude : null;
   console.log({
-    "longitude":longitude
+    "longitude": longitude
   });
 
   let location_name = location_message ? location_message.name : null;
   console.log({
-    "location_name":location_name
+    "location_name": location_name
   });
   let location_address = location_message ? location_message.address : null;
   console.log({
-    "location_address":location_address
+    "location_address": location_address
   });
-  
+
   // messages triggered by click to whatsapp adds
-  let referral = inside_messages ? inside_messages.referral: null;
-  let source_url = referral? referral.source_url: null;
+  let referral = inside_messages ? inside_messages.referral : null;
+  let source_url = referral ? referral.source_url : null;
   console.log({
-    "source_url":source_url
+    "source_url": source_url
   });
-  let source_id = referral? referral.source_id: null;
+  let source_id = referral ? referral.source_id : null;
   console.log({
-    "source_id":source_id
+    "source_id": source_id
   });
-  let source_type = referral? referral.source_type: null;
+  let source_type = referral ? referral.source_type : null;
   console.log({
-    "source_type":source_type
+    "source_type": source_type
   });
-  let referral_headline = referral? referral.headline: null;
+  let referral_headline = referral ? referral.headline : null;
   console.log({
-    "headline":referral_headline
+    "headline": referral_headline
   });
-  let referral_body = referral? referral.body: null;
+  let referral_body = referral ? referral.body : null;
   console.log({
-    "referral_body":referral_body
+    "referral_body": referral_body
   });
-  let referral_media_type = referral? referral.media_type: null;
+  let referral_media_type = referral ? referral.media_type : null;
   console.log({
-    "referral_media_type":referral_media_type
+    "referral_media_type": referral_media_type
   });
-  let referral_image_url = referral? referral.image_url: null;
+  let referral_image_url = referral ? referral.image_url : null;
   console.log({
-    "referral_image_url":referral_image_url
+    "referral_image_url": referral_image_url
   });
-  let referral_video_url = referral? referral.video_url: null;
+  let referral_video_url = referral ? referral.video_url : null;
   console.log({
-    "referral_video_url":referral_video_url
+    "referral_video_url": referral_video_url
   });
-  let referral_thumbnail_url = referral? referral.thumbnail_url: null;
+  let referral_thumbnail_url = referral ? referral.thumbnail_url : null;
   console.log({
-    "referral_thumbnail_url":referral_thumbnail_url
+    "referral_thumbnail_url": referral_thumbnail_url
   });
 
   // unknown messages
@@ -237,6 +237,27 @@ exports.extractMessageType = (req) => {
   console.log({
     "status": status
   });
+
+  let status_conversation = inside_statuses ? inside_statuses.conversation : null;
+  console.log({
+    "status_conversation": status_conversation
+  });
+
+  let status_conversation_origin = status_conversation ? status_conversation.origin : null;
+  console.log({
+    "status_conversation_origin": status_conversation_origin
+  });
+
+  let status_conversation_origin_type = status_conversation_origin ? status_conversation_origin.type : null;
+  console.log({
+    "status_conversation_origin_type": status_conversation_origin_type
+  });
+
+  let pricing = inside_statuses ? inside_statuses.pricing : null;
+  console.log({
+    "pricing": pricing
+  });
+
   let status_id = inside_statuses ? inside_statuses.id : null;
   console.log({
     "status_id": status_id
@@ -349,5 +370,83 @@ exports.extractMessageType = (req) => {
     "phone_number_id": phone_number_id
   });
 
+  return  {
+    entry,
+    id,
+    changes,
+    inside_changes,
+    value,
+    field,
+    messaging_product,
+    metadata,
+    contacts,
+    inside_contacts,
+    messages,
+    inside_messages,
+    contacts_inside_message,
+    contact_messages,
+    addresses,
+    birthday,
+    contact_name,
+    org,
+    contact_phones,
+    contact_urls,
+    context,
+    button,
+    button_text,
+    button_payload,
+    context_from,
+    context_id,
+    profile,
+    profile_name,
+    wa_id,
+    message_from,
+    message_id,
+    location_message,
+    latitude,
+    longitude,
+    location_name,
+    location_address,
+    referral,
+    source_url,
+    source_id,
+    source_type,
+    referral_headline,
+    referral_body,
+    referral_media_type,
+    referral_image_url,
+    referral_video_url,
+    referral_thumbnail_url,
+    error_message,
+    statuses,
+    inside_statuses,
+    status,
+    status_conversation,
+    status_conversation_origin,
+    status_conversation_origin_type,
+    pricing,
+    status_id,
+    status_timestamp,
+    status_recipient_id,
+    message_identity,
+    message_identity_acknowledged,
+    message_identity_created_timestamp,
+    message_identity_hash,
+    message_timestamp,
+    message_text,
+    message_text_body,
+    message_type,
+    image,
+    sha256,
+    image_id,
+    mime_type,
+    caption,
+    sticker,
+    sticker_id,
+    sticker_mime_type,
+    sticker_sha256,
+    display_phone_number,
+    phone_number_id,
+  };
 
 };

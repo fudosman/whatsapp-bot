@@ -8,5 +8,7 @@ const {extractMessageType} = require("../utils/extractMessage");
 
 exports.webHook = async (req, res) => {
  let message = await extractMessageType(req);
+if(message.message_text_body){
   
+}
 };

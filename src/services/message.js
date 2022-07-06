@@ -1,5 +1,9 @@
-const {handlePostRequests} = require("../services/axios");
-const {config} = require("../utils/utils");
+const {
+  handlePostRequests
+} = require("../services/axios");
+const {
+  config
+} = require("../utils/utils");
 
 
 //////////////////////////////////////////////////
@@ -14,15 +18,16 @@ exports.markMessageAsRead = async (message) => {
     "status": "read",
     "message_id": message.message_id
   };
-  const send_config = config("post",paylaod);
+
+  const send_config = config("post", paylaod);
   const isRead = await handlePostRequests(send_config);
-  if (!isRead){
-    return{
-      status : "failed",
+  if (!isRead) {
+    return {
+      status: "failed",
       message: "failed to mark message as read"
     };
-  }else{
-    return{
+  } else {
+    return {
       status: "success",
       message: "message marked as read"
     };
@@ -30,7 +35,7 @@ exports.markMessageAsRead = async (message) => {
 };
 
 
-exports.send_Text_Message = async (message,custom_message,is_this_a_link) => {
+exports.send_Text_Message = async (message, custom_message, is_this_a_link) => {
   const paylaod = {
     "messaging_product": "whatsapp",
     "preview_url": `${is_this_a_link}`,
@@ -38,10 +43,24 @@ exports.send_Text_Message = async (message,custom_message,is_this_a_link) => {
     "to": `${message.to}`,
     "type": "text",
     "text": {
-        "body": `${custom_message}`
+      "body": `${custom_message}`
     }
   };
-  const send_config = config("post",paylaod);
+  const send_config = config("post", paylaod);
   const isRead = await handlePostRequests(send_config);
   return isRead;
 };
+
+exports.send_preview_url_message = async (message, custom_message) => {
+  const payload = {
+    "messaging_product": "whatsapp",
+    "to":`${message.to}`,
+    "text": {
+      "preview_url": true,
+      "body": `${custom_message}`
+    }
+  };
+  const send_config = config("post", paylaod);
+  const isRead = await handlePostRequests(send_config);
+  return isRead;
+}
