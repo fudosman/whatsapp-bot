@@ -8,18 +8,18 @@ const axios = require('axios');
 
 
 exports.handlePostRequests = async (config) => {
-  console.log({
-    info: "incomming data",
-    data: config.data,
-    config: config
-  });
+  // console.log({
+  //   info: "incomming data",
+  //   data: config.data,
+  //   config: config
+  // });
   return await axios(config)
     .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       return error;
     });
 };

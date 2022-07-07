@@ -4,6 +4,7 @@ const {
 const {
   config
 } = require("../utils/utils");
+const {mark_message_as_read_payload,text_message_payload} = require("../utils/message_payloads");
 
 
 //////////////////////////////////////////////////
@@ -13,13 +14,11 @@ const {
 //////////////////////////////////////////////////
 
 exports.markMessageAsRead = async (message) => {
-  const paylaod = {
-    "messaging_product": "whatsapp",
-    "status": "read",
-    "message_id": message.message_id
-  };
+  let payload = mark_message_as_read_payload();
+  payload.message_id = message.message_id;
+  // console.log(payload);
 
-  const send_config = config("post", paylaod);
+  const send_config = config("post", payload);
   const isRead = await handlePostRequests(send_config);
   if (!isRead) {
     return {
@@ -35,20 +34,26 @@ exports.markMessageAsRead = async (message) => {
 };
 
 
-exports.send_Text_Message = async (message, custom_message, is_this_a_link) => {
-  const paylaod = {
-    "messaging_product": "whatsapp",
-    "preview_url": `${is_this_a_link}`,
-    "recipient_type": "individual",
-    "to": `${message.to}`,
-    "type": "text",
-    "text": {
-      "body": `${custom_message}`
-    }
-  };
-  const send_config = config("post", paylaod);
-  const isRead = await handlePostRequests(send_config);
-  return isRead;
+exports.send_Text_Message = async (message,add_message) => {
+  const payload = text_message_payload();
+  payload.to = message.message_from;
+  payload.text.body = add_message;
+
+  console.log(payload);  
+  const send_config = config("post", payload);
+  const isSent = await handlePostRequests(send_config);
+  if (!isSent) {
+    return {
+      status: "failed",
+      message: "failed to send message"
+    };
+  } else {
+    return {
+      status: "success",
+      message: `message sent to ${message.profile_name} with phone number ${message.message_from}`,
+      in_response_to: message.message_text_body 
+    };
+  }
 };
 
 exports.send_preview_url_message = async (message, custom_message) => {
@@ -63,4 +68,4 @@ exports.send_preview_url_message = async (message, custom_message) => {
   const send_config = config("post", paylaod);
   const isRead = await handlePostRequests(send_config);
   return isRead;
-}
+};

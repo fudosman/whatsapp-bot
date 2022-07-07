@@ -11,7 +11,7 @@ exports.text_message_payload = () => {
   };
 };
 
-exports.proeviewURL_message_payload = () => {
+exports.previewURL_message_payload = () => {
   return {
     "messaging_product": "whatsapp",
     "to": "{{Recipient-Phone-Number}}",
@@ -485,31 +485,7 @@ exports.reply_button_message_payload = () => {
 exports.mark_message_as_read_payload = () => {
   return {
     "messaging_product": "whatsapp",
-    "recipient_type": "individual",
-    "to": "{{Recipient-Phone-Number}}",
-    "type": "interactive",
-    "interactive": {
-      "type": "button",
-      "body": {
-        "text": "Are you hungry?"
-      },
-      "action": {
-        "buttons": [{
-            "type": "reply",
-            "reply": {
-              "id": "unique-id-123",
-              "title": "Yes"
-            }
-          },
-          {
-            "type": "reply",
-            "reply": {
-              "id": "unique-id-456",
-              "title": "No"
-            }
-          }
-        ]
-      }
-    }
+    "status": "read",
+    "message_id": "incoming-message-id"
   };
 };
