@@ -6,7 +6,10 @@ const {
 } = require("../utils/utils");
 const {
   markMessageAsRead,
-  send_Text_Message
+  send_Text_Message,
+  send_preview_url_message,
+  send_image_by_ID,
+  send_image_by_URL
 } = require("../services/message");
 const {
   extractMessageType
@@ -20,10 +23,12 @@ exports.webHook = async (req, res) => {
   // text handlers
   if(message_type === "text"){
     console.log("text");
-    let read = await markMessageAsRead(DATA);
-    let sent = await send_Text_Message(DATA, "hey guys");
+    // let read = await markMessageAsRead(DATA);
+    // let sent = await send_Text_Message(DATA, "hey guys");
+    let sent = await send_preview_url_message(DATA, "https://www.google.com is the banger of the internet");
+    // let sent = await send_image_by_ID(DATA, "569816751363082");
+    // let sent = await send_image_by_URL(DATA, "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png");
     console.log(sent);
-    // send a message to the user
   }
   // image handlers
   if(message_type === "image"){
